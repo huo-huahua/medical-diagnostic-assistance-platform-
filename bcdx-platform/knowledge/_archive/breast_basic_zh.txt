@@ -1,0 +1,50 @@
+# Early Symptoms of Breast Cancer
+Early breast cancer often presents as a painless breast lump (hard in texture, irregular in shape, and poor in mobility), nipple discharge (especially bloody or serous), breast skin indentation (dimpling) or orange-peel-like changes (caused by lymphatic vessel obstruction). Some patients may have enlarged axillary lymph nodes (mostly on the same side). In addition, a few patients may experience breast pain or discomfort, but pain is not a typical early symptom. About 5-10% of patients have microcalcifications detected through imaging during physical examination without any subjective symptoms. 
+# Diagnostic Methods for Breast Cancer
+Common diagnostic methods include:
+- Breast ultrasound: Suitable for dense breasts and young women, it can distinguish between cystic and solid masses.
+- Mammography: Currently the most effective screening tool, it can detect early-stage cancers and microcalcifications that are not palpable.
+- Magnetic Resonance Imaging (MRI): Highly sensitive, it is used for screening high-risk individuals, assessing lesion extent, and detecting contralateral breast cancer.
+Pathological biopsy is essential for diagnosis, including:
+- Fine-needle aspiration cytology (FNAC): Quick but unable to distinguish invasive cancer from in situ cancer.
+- Core needle biopsy (CNB): Obtains tissue strips and can be used for immunohistochemistry and molecular typing.
+- Vacuum-assisted breast biopsy (VABB): Removes small lesions.
+Modern image-guided (ultrasound, mammography, MRI) biopsy techniques can improve accuracy and reduce false negatives. 
+# Risk Factors for Breast Cancer
+The main risk factors can be divided into two categories: unchangeable and changeable.
+Unchangeable factors:
+- Gender: The risk for women is much higher than for men.
+- Age: Especially for those over 50, the incidence rate increases with age.
+- Genetic mutations: Mutations in genes such as BRCA1, BRCA2, PALB2, and TP53. About 5-10% of breast cancers are related to genetics.
+- Family history: A first-degree relative (mother, sister, daughter) with the disease increases the risk by 2-3 times.
+- Early menarche (<12 years old) or late menopause (>55 years old): Prolonged exposure to estrogen.
+- History of benign breast disease: Increased risk of atypical hyperplasia.
+Changeable factors:
+- Reproductive history: Never having given birth or having a first birth after 30, not breastfeeding.
+- Hormone replacement therapy: Long-term combined use of estrogen and progesterone increases the risk.
+- Lifestyle: High-fat diet, obesity (post-menopause), drinking alcohol (≥1 drink per day), lack of exercise.
+- History of chest radiation: Such as in patients with Hodgkin's lymphoma. 
+# Breast Cancer Treatment Approaches
+Treatment plans are based on molecular typing and clinical staging:
+- Surgery: Breast-conserving surgery (combined with radiotherapy) or total mastectomy; sentinel lymph node biopsy can replace axillary lymph node dissection.
+- Radiotherapy: Postoperative adjuvant radiotherapy to reduce local recurrence.
+- Chemotherapy: Neoadjuvant chemotherapy (to downstage before surgery) or adjuvant chemotherapy (to eliminate micrometastases after surgery).
+- Endocrine therapy: Tamoxifen (for premenopausal patients), aromatase inhibitors (letrozole, anastrozole, exemestane, for postmenopausal patients), and CDK4/6 inhibitors (palbociclib, etc.) for hormone receptor-positive patients.
+- Targeted therapy: Trastuzumab, pertuzumab, T-DM1, T-DXd, etc. for HER2-positive patients.
+- Immunotherapy: PD-1/PD-L1 inhibitors (pembrolizumab) for triple-negative breast cancer.
+Specific treatment plans require multidisciplinary discussions and are formulated based on tumor size, lymph node status, and gene expression profiles (such as Oncotype DX). 
+# Breast Cancer Prevention and Screening
+- General-risk women: Annual mammography starting at age 40 until age 74.
+- High-risk groups (BRCA mutation, significant family history, history of chest radiation): Annual alternating breast MRI and mammography starting at age 30 (every 6 months).
+- Clinical breast examination: Every 1-3 years for women aged 20-39, and annually for those over 40.
+- Self-examination: Recommended 7-10 days after menstruation, but it cannot replace professional screening.
+- Risk reduction strategies: Maintain a healthy weight (BMI < 25), engage in at least 150 minutes of moderate-intensity exercise per week, limit alcohol intake (preferably none), and breastfeed for at least 6 months.
+- Medication prevention: Tamoxifen and raloxifene can reduce the incidence in high-risk groups, but side effects need to be considered.
+- Preventive surgery: Women with BRCA mutations may consider bilateral mastectomy, which can reduce the risk by over 90%. 
+# Postoperative Rehabilitation for Breast Cancer
+- Upper limb function exercise: Start making a fist and bending the wrist on the first day after surgery; bend and extend the elbow on the second to third day; do wall climbing exercises for the shoulder joint on the seventh day. Avoid lifting heavy objects (>5kg) with the affected side, taking blood pressure, and having blood drawn.
+- Lymphedema prevention: Wear pressure sleeves, avoid prolonged hanging down, and take care of the skin (sun protection, moisturizing, and preventing mosquito bites).
+- Regular follow-up: Have a check-up every 3-6 months within the first two years after surgery (including physical examination, breast ultrasound, chest X-ray, etc.); every 6-12 months from the second to fifth year; and once a year after the fifth year. Bone scans, CT, MRI, and PET-CT can be done based on the condition.
+- Psychological support: About 30% of patients experience anxiety or depression. They can join support groups, receive psychological counseling, and participate in mindfulness training.
+- Management of side effects from adjuvant therapy: Chemotherapy-induced nausea and vomiting (use antiemetic drugs), bone marrow suppression (white blood cell-boosting injections), and joint pain from endocrine therapy (exercise, calcium supplementation, and vitamin D).
+- Fertility protection: Young patients can consider freezing oocytes or embryos before chemotherapy.

@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    /* Ambient depth: two soft radial washes anchored to the viewport. */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 15% 0%, rgba(14, 165, 183, 0.09), transparent 60%),
+      radial-gradient(ellipse 60% 45% at 90% 5%, rgba(99, 102, 241, 0.07), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-brand-500/35 text-white;
+  }
+
+  /* Slim, unobtrusive scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-canvas-soft;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-line-strong;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-ghost;
+    background-clip: content-box;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-400/70 ring-offset-2 ring-offset-canvas;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* ---------- surfaces ---------- */
+  .panel {
+    @apply rounded-2xl border border-line bg-canvas-soft/80 shadow-panel backdrop-blur-sm;
+  }
+
+  .panel-raised {
+    @apply rounded-2xl border border-line-strong bg-canvas-raised/90 shadow-lift backdrop-blur;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between gap-3 border-b border-line/70 px-5 py-4;
+  }
+
+  .panel-title {
+    @apply flex items-center gap-2 text-sm font-semibold tracking-tight text-ink;
+  }
+
+  /* ---------- inputs ---------- */
+  .field {
+    @apply w-full rounded-xl border border-line-strong bg-canvas/70 px-3 py-2.5 font-mono text-sm text-ink
+           transition-all duration-150 placeholder:font-sans placeholder:text-ink-ghost
+           hover:border-ink-ghost/60
+           focus:border-brand-500 focus:bg-canvas focus:ring-2 focus:ring-brand-500/25;
+  }
+
+  .field-invalid {
+    @apply border-risk-high/70 bg-risk-highSoft/40 focus:border-risk-high focus:ring-risk-high/25;
+  }
+
+  .label {
+    @apply mb-1.5 block text-2xs font-semibold uppercase tracking-wider text-ink-muted;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl px-4 py-2.5
+           text-sm font-semibold transition-all duration-150
+           disabled:cursor-not-allowed disabled:opacity-45 disabled:saturate-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-b from-brand-400 to-brand-600 text-white shadow-lg shadow-brand-900/40
+           hover:from-brand-300 hover:to-brand-500 hover:shadow-brand-800/50
+           active:translate-y-px;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line-strong bg-canvas-raised/60 text-ink-muted
+           hover:border-ink-ghost hover:bg-canvas-hover hover:text-ink;
+  }
+
+  .btn-subtle {
+    @apply btn bg-canvas-hover/70 text-ink-muted hover:bg-line-strong hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply btn border border-risk-high/40 bg-risk-highSoft/60 text-risk-high
+           hover:border-risk-high/70 hover:bg-risk-highSoft;
+  }
+
+  /* ---------- chips ---------- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1
+           text-2xs font-semibold tracking-wide;
+  }
+
+  .chip-brand {
+    @apply chip border-brand-500/35 bg-brand-500/10 text-brand-200;
+  }
+
+  .chip-risk {
+    @apply chip border-risk-high/40 bg-risk-highSoft/70 text-risk-high;
+  }
+
+  .chip-safe {
+    @apply chip border-risk-low/40 bg-risk-lowSoft/70 text-risk-low;
+  }
+
+  .chip-warn {
+    @apply chip border-risk-warn/40 bg-risk-warnSoft/70 text-risk-warn;
+  }
+
+  .chip-neutral {
+    @apply chip border-line-strong bg-canvas-hover text-ink-muted;
+  }
+
+  /* ---------- misc ---------- */
+  .divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-line-strong to-transparent;
+  }
+
+  .skeleton {
+    @apply rounded-lg bg-canvas-hover;
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(148, 163, 184, 0.09),
+      transparent
+    );
+    background-size: 500px 100%;
+    background-repeat: no-repeat;
+    @apply animate-shimmer;
+  }
+
+  .stat-value {
+    @apply font-mono text-2xl font-semibold tabular-nums tracking-tight text-ink;
+  }
+
+  .scroll-area {
+    @apply overflow-y-auto overscroll-contain;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grid-lines {
+    @apply bg-grid-faint;
+    background-size: 32px 32px;
+  }
+
+  /* Fade a scroll container's edges without an extra element */
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

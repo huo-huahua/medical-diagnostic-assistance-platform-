@@ -1,0 +1,49 @@
+# ---- Dependencies ----
+node_modules/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Secrets & local config ----
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---- Databases ----
+*.db
+*.sqlite
+*.sqlite3
+
+# ---- Model artifacts (regenerate with ml/pipelines/train.py) ----
+ml/registry/models/*.joblib
+ml/data/processed/*.csv
+
+# ---- Build output ----
+dist/
+build/
+.vite/
+frontend/dist/
+
+# ---- Test artifacts ----
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# ---- Editor & OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ---- Logs ----
+*.log
+logs/

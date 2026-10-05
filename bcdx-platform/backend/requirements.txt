@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# BC-Dx Platform — full stack (backend + ML runtime)
+# ---------------------------------------------------------------------------
+# --- web ---
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.32,<1.0
+python-multipart>=0.0.12
+pydantic>=2.9,<3.0
+pydantic-settings>=2.6,<3.0
+email-validator>=2.2
+
+# --- auth ---
+passlib[bcrypt]>=1.7.4
+bcrypt>=4.0,<4.1
+pyjwt>=2.9,<3.0
+
+# --- db ---
+sqlalchemy>=2.0,<3.0
+alembic>=1.13
+
+# --- ml runtime ---
+numpy>=1.24,<2.0
+pandas>=2.0,<3.0
+scikit-learn>=1.3,<1.6
+xgboost>=2.0,<3.0
+joblib>=1.3
+shap>=0.44
+
+# --- rag (local, no API cost) ---
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+
+# --- llm (optional, heavily cached) ---
+openai>=1.50
+
+# --- ops ---
+httpx>=0.27
+python-dotenv>=1.0

@@ -1,0 +1,130 @@
+=== 威斯康星州乳腺癌诊断数据集变量信息 ===
+
+变量 1: ID
+  角色: ID
+  类型: Categorical
+
+变量 2: Diagnosis
+  角色: Target
+  类型: Categorical
+
+变量 3: radius1
+  角色: Feature
+  类型: Continuous
+
+变量 4: texture1
+  角色: Feature
+  类型: Continuous
+
+变量 5: perimeter1
+  角色: Feature
+  类型: Continuous
+
+变量 6: area1
+  角色: Feature
+  类型: Continuous
+
+变量 7: smoothness1
+  角色: Feature
+  类型: Continuous
+
+变量 8: compactness1
+  角色: Feature
+  类型: Continuous
+
+变量 9: concavity1
+  角色: Feature
+  类型: Continuous
+
+变量 10: concave_points1
+  角色: Feature
+  类型: Continuous
+
+变量 11: symmetry1
+  角色: Feature
+  类型: Continuous
+
+变量 12: fractal_dimension1
+  角色: Feature
+  类型: Continuous
+
+变量 13: radius2
+  角色: Feature
+  类型: Continuous
+
+变量 14: texture2
+  角色: Feature
+  类型: Continuous
+
+变量 15: perimeter2
+  角色: Feature
+  类型: Continuous
+
+变量 16: area2
+  角色: Feature
+  类型: Continuous
+
+变量 17: smoothness2
+  角色: Feature
+  类型: Continuous
+
+变量 18: compactness2
+  角色: Feature
+  类型: Continuous
+
+变量 19: concavity2
+  角色: Feature
+  类型: Continuous
+
+变量 20: concave_points2
+  角色: Feature
+  类型: Continuous
+
+变量 21: symmetry2
+  角色: Feature
+  类型: Continuous
+
+变量 22: fractal_dimension2
+  角色: Feature
+  类型: Continuous
+
+变量 23: radius3
+  角色: Feature
+  类型: Continuous
+
+变量 24: texture3
+  角色: Feature
+  类型: Continuous
+
+变量 25: perimeter3
+  角色: Feature
+  类型: Continuous
+
+变量 26: area3
+  角色: Feature
+  类型: Continuous
+
+变量 27: smoothness3
+  角色: Feature
+  类型: Continuous
+
+变量 28: compactness3
+  角色: Feature
+  类型: Continuous
+
+变量 29: concavity3
+  角色: Feature
+  类型: Continuous
+
+变量 30: concave_points3
+  角色: Feature
+  类型: Continuous
+
+变量 31: symmetry3
+  角色: Feature
+  类型: Continuous
+
+变量 32: fractal_dimension3
+  角色: Feature
+  类型: Continuous
+

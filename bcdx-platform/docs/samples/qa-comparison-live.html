@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>问答路径对比 · 乳腺癌筛查应该多久做一次？</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1a1d23;--muted:#5c6472;--line:#e3e6ec;
+--accent:#2563eb;--local:#0d9488;--direct:#c2410c;--rag:#7c3aed;}
+*{box-sizing:border-box}
+body{margin:0;padding:32px 20px 64px;background:var(--bg);color:var(--ink);
+font:15px/1.75 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:26px;margin:0 0 6px}
+h2{font-size:19px;margin:44px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+h3{font-size:16px;margin:0}
+h4{font-size:15px;margin:18px 0 6px;color:var(--accent)}
+.sub{color:var(--muted);margin:0 0 22px}
+.question{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);
+border-radius:8px;padding:16px 20px;font-size:18px;font-weight:600;margin-bottom:8px}
+.meta{color:var(--muted);font-size:13px;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+border-radius:8px;overflow:hidden;font-size:14px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:#f0f2f6;font-weight:600;width:220px}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;
+display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.card header code{font-size:12px;color:var(--muted);background:#f0f2f6;padding:2px 6px;border-radius:4px}
+.card-local_rag{border-top:3px solid var(--local)}
+.card-llm_direct{border-top:3px solid var(--direct)}
+.card-llm_rag{border-top:3px solid var(--rag)}
+.tags{margin:10px 0 8px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.tag-pay{background:#fff2e8;border-color:#fcd9bd;color:#c2410c}
+.tag-free{background:#e9f7f4;border-color:#bfe6de;color:#0d9488}
+.tag-ground{background:#f1effd;border-color:#ddd6fb;color:#7c3aed}
+.tag-unground{background:#f4f5f7}
+.tag-demo{background:#fffbe6;border-color:#fbe38a;color:#8a6100}
+.desc{color:var(--muted);font-size:13px;margin:0 0 14px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:0 0 14px;font-size:13px}
+.metrics div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding-bottom:3px}
+.metrics dt{color:var(--muted);margin:0}
+.metrics dd{margin:0;font-variant-numeric:tabular-nums;font-weight:600}
+.risk{background:#fff8e6;border:1px solid #fbe38a;border-radius:6px;padding:6px 10px;font-size:12px;margin:0 0 12px}
+.answer{flex:1;font-size:14px;overflow-wrap:anywhere}
+.answer p{margin:8px 0}
+.answer ul{margin:8px 0;padding-left:22px}
+.answer li{margin:4px 0}
+.answer hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.answer h3:first-child,.answer h4:first-child{margin-top:0}
+.empty{color:var(--muted);font-style:italic}
+sup.cite{font-size:10px;color:var(--accent);font-weight:700}
+.cites{list-style:none;padding:0;margin:0;font-size:13px}
+.cites li{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;
+padding:8px 0;border-bottom:1px solid var(--line)}
+.cites .idx{color:var(--accent);font-weight:700;min-width:26px}
+.cites .ttl{font-weight:600;flex:1;min-width:200px}
+.cites .src{color:var(--muted);font-size:12px}
+.cites .score{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}
+.note{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 20px;font-size:14px}
+.note ul{margin:8px 0;padding-left:22px}
+.note li{margin:6px 0}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
+color:var(--muted);font-size:12px;line-height:1.7}
+@media print{body{background:#fff;padding:0}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>同一问题，三条路径：本地检索 / 外部直答 / 外部 + 检索</h1>
+  <p class="sub">BC-Dx Platform · 问答路径对比实测结果</p>
+
+  <div class="question">乳腺癌筛查应该多久做一次？</div>
+  <p class="meta">病种 breast · 生成于 2026-10-05 00:56</p>
+
+  <h2>检索与整体度量</h2>
+  <table><tr><th>病种</th><td>breast</td></tr>
+<tr><th>最高相似度</th><td>0.8054</td></tr>
+<tr><th>总延迟（ms）</th><td>4797</td></tr>
+<tr><th>对比记录 id</th><td>22</td></tr>
+<tr><th>检索命中 / 送入提示的片段</th><td>5 / 4</td></tr></table>
+
+  <h2>三条路径的回答</h2>
+  <div class="grid">
+      <article class="card card-local_rag">
+        <header>
+          <h3>本地检索增强</h3>
+          <code>local_rag</code>
+        </header>
+        <div class="tags"><span class="tag tag-free">零成本</span><span class="tag tag-ground">有出处</span></div>
+        <p class="desc">在本地知识库中检索相关条目，直接以原文片段组织答案并标注出处。全程离线，不调用任何外部服务，成本为零。</p>
+        <dl class="metrics">
+          <div><dt>延迟</dt><dd>40 ms</dd></div>
+          <div><dt>token</dt><dd>0 + 0</dd></div>
+          <div><dt>费用</dt><dd>¥0</dd></div>
+          <div><dt>字数</dt><dd>671</dd></div>
+          <div><dt>引用</dt><dd>4</dd></div>
+          <div><dt>与检索片段词面重合</dt><dd>100%</dd></div>
+          <div><dt>上游</dt><dd>本地 / —</dd></div>
+          <div><dt>状态</dt><dd>ok</dd></div>
+        </dl>
+        <p class="risk">命中风险表述：一定</p>
+        <div class="answer"><p>乳腺癌预防与筛查</p>
+<p>一般风险女性的推荐筛查方案为40岁起每1至2年进行一次乳腺钼靶检查，具体起始年龄与间隔应结合个人风险、乳腺密度与当地指南综合决定。</p>
+<p>高风险人群（如BRCA突变携带者、明确家族遗传倾向者）建议提前至30岁起开始筛查，并联合每年一次乳腺MRI，二者互为补充而非替代。</p>
+<p>者）建议提前至30岁起开始筛查，并联合每年一次乳腺MRI，二者互为补充而非替代。</p>
+<p>生活方式干预可降低风险，包括维持健康体重、限制酒精摄入、坚持规律运动、母乳喂养。对于携带高外显率致病突变的极高危女性，可在充分遗传咨询后考虑预防性乳房切除和（或）输卵管卵巢切除。 <sup class=\"cite\">[1]</sup></p>
+<p>乳腺钼靶检查的准备与过程</p>
+<p>乳腺钼靶（乳腺X线摄影）是乳腺癌筛查的主要手段之一。检查时需要将乳房置于两块压板之间适度加压并拍摄不同角度，加压会带来短暂不适但可减少组织重叠、降低辐射剂量。 <sup class=\"cite\">[2]</sup></p>
+<p>乳腺癌遗传咨询与基因检测</p>
+<p>有男性乳腺癌、发病年龄较轻（如50岁前）、双侧原发乳腺癌、已知家族携带致病突变。</p>
+<p>基因检测结果需由专业人员解读。携带致病变异并不意味着一定发病，但可能需要提前筛查、加做MRI，或在充分咨询后考虑降低风险的手术与药物干预。检测还涉及隐私与家族成员影响，应审慎决策。 <sup class=\"cite\">[3]</sup></p>
+<p>乳腺癌诊断方法</p>
+<p>常用诊断手段包括乳腺超声、钼靶X线摄影（乳腺X线）和磁共振成像（MRI）。超声适合致密型乳腺与年轻女性，钼靶对微小钙化灶敏感，MRI多用于高危人群筛查或术前评估。 <sup class=\"cite\">[4]</sup></p>
+<hr>
+<p>以上内容整理自本地知识库，仅供健康科普参考，不能替代执业医师的诊断与治疗建议。</p></div>
+      </article>
+
+      <article class="card card-llm_direct">
+        <header>
+          <h3>外部模型直答（无检索）</h3>
+          <code>llm_direct</code>
+        </header>
+        <div class="tags"><span class="tag tag-pay">外部付费调用</span><span class="tag tag-unground">无出处</span></div>
+        <p class="desc">把问题直接交给外部大模型，不提供任何参考资料。用于观察模型完全凭参数化知识作答时的表现，是评估「幻觉」风险的基线路径。</p>
+        <dl class="metrics">
+          <div><dt>延迟</dt><dd>3057 ms</dd></div>
+          <div><dt>token</dt><dd>139 + 492</dd></div>
+          <div><dt>费用</dt><dd>¥0.004214</dd></div>
+          <div><dt>字数</dt><dd>861</dd></div>
+          <div><dt>引用</dt><dd>0</dd></div>
+          <div><dt>与检索片段词面重合</dt><dd>16%</dd></div>
+          <div><dt>上游</dt><dd>deepseek / deepseek-chat</dd></div>
+          <div><dt>状态</dt><dd>ok</dd></div>
+        </dl>
+        
+        <div class="answer"><p>关于乳腺癌筛查的频率，需要根据<strong>年龄、个人风险因素、家族史</strong>以及<strong>所在地区的筛查指南</strong>来综合决定。不同国家和机构（如美国癌症协会、美国预防服务工作组、中国相关指南）的建议存在差异。以下是一般性的参考信息，具体方案请以医生评估为准。</p>
+<h4>一般风险女性的常见筛查建议</h4>
+<p><strong>1. 40～49岁</strong></p>
+<ul>
+<li>多数指南建议<strong>根据个人意愿和医生讨论后决定</strong>是否开始筛查。</li>
+<li>如果选择筛查，通常为<strong>每1～2年一次</strong>乳腺X线摄影（钼靶）。</li>
+</ul>
+<p><strong>2. 50～74岁</strong></p>
+<ul>
+<li>一般建议<strong>每1～2年一次</strong>乳腺X线摄影。</li>
+<li>这是多数指南较为一致推荐的筛查年龄段。</li>
+</ul>
+<p><strong>3. 75岁以上</strong></p>
+<ul>
+<li>是否继续筛查需结合预期寿命、整体健康状况和个人意愿，由医生个体化判断。</li>
+<li>这方面不同指南差异较大，我不确定有统一标准。</li>
+</ul>
+<h4>高风险女性的情况</h4>
+<p>如果存在以下情况，筛查可能开始得更早、频率更高，并可能联合乳腺磁共振（MRI）：</p>
+<ul>
+<li>明确的乳腺癌/卵巢癌家族史</li>
+<li>携带BRCA1/BRCA2等致病基因突变</li>
+<li>既往胸部放疗史</li>
+<li>既往乳腺不典型增生或原位癌病史</li>
+</ul>
+<p>具体起始年龄和间隔需由专科医生根据风险评估制定，<strong>不建议自行决定</strong>。</p>
+<h4>需要注意的几点</h4>
+<ul>
+<li><strong>筛查频率不是越频繁越好</strong>：过于频繁可能增加假阳性、不必要的活检和心理负担。</li>
+<li><strong>乳腺X线摄影是主流筛查手段</strong>，超声常作为致密型乳腺的补充，MRI主要用于高风险人群。</li>
+<li><strong>自我检查</strong>不能替代影像学筛查，但有助于熟悉自身乳房状态、及时发现变化。</li>
+<li>中国部分指南对一般风险女性的建议与欧美略有不同，实际以就诊医院的规范为准。</li>
+</ul>
+<h4>小结</h4>
+<p>对多数一般风险女性，<strong>50～74岁每1～2年做一次乳腺X线摄影</strong>是较常见的建议；40～49岁是否开始及间隔需个体化讨论；高风险人群需更早、更密集的筛查方案。</p>
+<p>由于筛查频率涉及个人具体情况，建议你携带家族史、既往检查结果等信息，与乳腺专科或全科医生面谈后再确定方案，最终请以医师的意见为准。</p></div>
+      </article>
+
+      <article class="card card-llm_rag">
+        <header>
+          <h3>外部模型 + 检索增强</h3>
+          <code>llm_rag</code>
+        </header>
+        <div class="tags"><span class="tag tag-pay">外部付费调用</span><span class="tag tag-ground">有出处</span></div>
+        <p class="desc">先做本地检索，再把检索到的原文片段作为上下文交给外部模型组织语言。兼顾出处的可核查性与表达的流畅度，代价是每次调用产生费用。</p>
+        <dl class="metrics">
+          <div><dt>延迟</dt><dd>1700 ms</dd></div>
+          <div><dt>token</dt><dd>541 + 262</dd></div>
+          <div><dt>费用</dt><dd>¥0.003178</dd></div>
+          <div><dt>字数</dt><dd>412</dd></div>
+          <div><dt>引用</dt><dd>4</dd></div>
+          <div><dt>与检索片段词面重合</dt><dd>69%</dd></div>
+          <div><dt>上游</dt><dd>deepseek / deepseek-chat</dd></div>
+          <div><dt>状态</dt><dd>ok</dd></div>
+        </dl>
+        
+        <div class="answer"><h3>乳腺癌筛查频率</h3>
+<h4>一般风险女性</h4>
+<ul>
+<li>推荐从40岁起开始筛查，每1至2年进行一次乳腺钼靶检查<sup class=\"cite\">[1]</sup>。</li>
+<li>具体的起始年龄与筛查间隔，应结合个人风险、乳腺密度以及当地指南综合决定<sup class=\"cite\">[1]</sup>。</li>
+</ul>
+<h4>高风险人群</h4>
+<ul>
+<li>高风险人群（如BRCA突变携带者、有明确家族遗传倾向者）建议提前至30岁起开始筛查<sup class=\"cite\">[1]</sup>。</li>
+<li>筛查方式为每年一次乳腺MRI，并与钼靶联合使用，二者互为补充而非替代<sup class=\"cite\">[1]</sup><sup class=\"cite\">[2]</sup>。</li>
+</ul>
+<h4>其他相关说明</h4>
+<ul>
+<li>乳腺钼靶是乳腺癌筛查的主要手段之一，检查时需将乳房置于两块压板之间适度加压并拍摄不同角度<sup class=\"cite\">[3]</sup>。</li>
+<li>常用诊断手段还包括乳腺超声和磁共振成像（MRI）；超声适合致密型乳腺与年轻女性，钼靶对微小钙化灶敏感，MRI多用于高危人群筛查或术前评估<sup class=\"cite\">[5]</sup>。</li>
+<li>关于不同风险分层下更细化的筛查间隔（如每年、每几年一次的具体对应关系），资料中未提及。</li>
+</ul>
+<p>具体筛查方案请以医师意见为准。</p></div>
+      </article>
+  </div>
+
+  
+    <section>
+      <h2>检索到的出处（三条路径共用同一次检索）</h2>
+      <ol class="cites"><li><span class="idx">[1]</span>
+            <span class="ttl">乳腺癌知识库 &gt; 乳腺癌预防与筛查（合并 2 段）</span>
+            <span class="src">breast_cancer_zh</span>
+            <span class="score">0.8054</span></li>
+<li><span class="idx">[2]</span>
+            <span class="ttl">乳腺影像与检查流程 &gt; 乳腺钼靶检查的准备与过程</span>
+            <span class="src">breast_imaging_zh</span>
+            <span class="score">0.6896</span></li>
+<li><span class="idx">[3]</span>
+            <span class="ttl">乳腺癌知识库 &gt; 乳腺癌遗传咨询与基因检测</span>
+            <span class="src">breast_cancer_zh</span>
+            <span class="score">0.7057</span></li>
+<li><span class="idx">[4]</span>
+            <span class="ttl">乳腺癌知识库 &gt; 乳腺癌诊断方法</span>
+            <span class="src">breast_cancer_zh</span>
+            <span class="score">0.6799</span></li></ol>
+    </section>
+
+  <h2>汇总（费用与调用）</h2>
+  <table><tr><th>外部调用次数</th><td>2</td></tr>
+<tr><th>缓存命中</th><td>0</td></tr>
+<tr><th>提示 token</th><td>680</td></tr>
+<tr><th>生成 token</th><td>754</td></tr>
+<tr><th>合计费用（元）</th><td>0.007392</td></tr>
+<tr><th>有出处的路径</th><td>[&#x27;local_rag&#x27;, &#x27;llm_rag&#x27;]</td></tr>
+<tr><th>无出处的路径</th><td>[&#x27;llm_direct&#x27;]</td></tr>
+<tr><th>大模型可用</th><td>True</td></tr>
+<tr><th>演示通道（未真实计费）</th><td>False</td></tr></table>
+
+  <h2>怎么读这组结果</h2>
+  <div class="note">
+    <ul>
+      <li><strong>词面重合</strong>衡量回答与检索到的片段有多少字面对应。它低不代表回答错，
+          只说明这段话<em>不是从这批资料里来的</em>——直答路径没有出处，重合度通常很低。</li>
+      <li><strong>延迟</strong>不可直接横向比较：本地路径不联网，两条外部路径要往返服务商。
+          真实网络抖动会以秒为单位影响后者。</li>
+      <li><strong>三条路径共用同一次检索</strong>，所以任何差异都来自「怎么组织答案」，
+          而不是「拿到了不同的资料」。这是这个对比能说明问题的前提。</li>
+      <li><strong>费用</strong>是按配置的单价估算的显示值，不参与实际计费。</li>
+    </ul>
+  </div>
+
+  <footer>
+    本页内容由系统自动生成，回答来自本地知识库与（或）外部大语言模型，<strong>仅供健康科普参考，
+    不能替代执业医师的诊断与治疗建议</strong>。身体不适请就医。<br>
+    BC-Dx Platform · 非医疗器械 · 数据仅用于技术演示
+  </footer>
+</div>
+</body>
+</html>

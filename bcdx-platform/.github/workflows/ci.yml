@@ -1,0 +1,136 @@
+# ---------------------------------------------------------------------------
+# BC-Dx Platform — continuous integration
+# ---------------------------------------------------------------------------
+# Two independent jobs, because a broken backend and a broken frontend are
+# unrelated failures and should not mask each other.
+#
+# NOTE on model artifacts: `ml/registry/models/*.joblib` is gitignored, so CI
+# rebuilds them from the committed raw CSVs. `ml/pipelines/train.py` is fully
+# seeded (RANDOM_STATE), so this reproduces the published thresholds exactly —
+# verified: the only field that changes between runs is `generated_at`. This
+# also means CI fails if the training pipeline ever breaks, which is the point.
+# ---------------------------------------------------------------------------
+
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+# Least privilege: nothing here writes to the repository.
+permissions:
+  contents: read
+
+# A new push supersedes an in-flight run on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend tests (pytest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      # The embedding model is a ~470 MB download; caching it turns a ~1 minute
+      # step into a couple of seconds on repeat runs.
+      - name: Cache HuggingFace models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-${{ runner.os }}-paraphrase-multilingual-MiniLM-L12-v2
+
+      - name: Rebuild model artifacts from the committed datasets
+        working-directory: .
+        run: python ml/pipelines/train.py
+
+      - name: Show the chunking statistics the suite will assert on
+        working-directory: .
+        run: |
+          python - <<'PY'
+          import json, sys
+          sys.path.insert(0, "backend")
+          from app.services.rag_service import get_index
+          index = get_index()
+          index.build()
+          stats = index.chunk_stats
+          print(json.dumps(stats, ensure_ascii=False, indent=2))
+          # Fail loudly here rather than deep inside a test assertion.
+          if stats.get("oversize"):
+              sys.exit(f"{stats['oversize']} chunk(s) exceed the embedding window")
+          PY
+        env:
+          PYTHONPATH: backend
+
+      - name: Run the test suite
+        env:
+          PYTHONPATH: .
+          # Keeps the transformers truncation warnings out of the log.
+          TRANSFORMERS_VERBOSITY: error
+          TOKENIZERS_PARALLELISM: "false"
+        run: |
+          pytest -q \
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-report=xml
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend/coverage.xml
+          if-no-files-found: ignore
+          retention-days: 7
+
+  frontend:
+    name: Frontend typecheck + build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build

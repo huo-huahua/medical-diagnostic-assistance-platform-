@@ -1,0 +1,20 @@
+# ---------------------------------------------------------------------------
+# BC-Dx Platform — development / CI dependencies
+# ---------------------------------------------------------------------------
+# Install on top of `backend/requirements.txt`:
+#
+#   pip install -r backend/requirements.txt -r backend/requirements-dev.txt
+#
+# Nothing here is needed to *run* the platform.
+# ---------------------------------------------------------------------------
+
+# --- test runner ---
+pytest>=7.4,<9.0
+
+# --- coverage (optional; produces the number, not required to pass) ---
+pytest-cov>=4.1
+
+# --- test transport ---
+# `fastapi.testclient` needs httpx. Pinned to the version range the project
+# already ships so the suite exercises the same client as production code.
+httpx>=0.27

@@ -1,0 +1,1218 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-04T11:03:46Z",
+  "label_semantics": {
+    "0": "negative",
+    "1": "positive"
+  },
+  "env": {
+    "python": "3.12.4",
+    "sklearn": "1.3.0",
+    "platform": "Windows 11"
+  },
+  "data_sources": {
+    "wdbc": {
+      "name": "Breast Cancer Wisconsin (Diagnostic)",
+      "origin": "UCI ML Repository / sklearn.datasets",
+      "license": "CC BY 4.0",
+      "sha256": "92f2bb150e761859"
+    },
+    "heart": {
+      "name": "Heart Disease (Cleveland)",
+      "origin": "UCI ML Repository, dataset id=45",
+      "license": "CC BY 4.0",
+      "sha256": "eb7ca1e47000ba0a"
+    }
+  },
+  "diseases": {
+    "breast": {
+      "disease": "breast",
+      "display_zh": "乳腺癌",
+      "display_en": "Breast Cancer",
+      "label_map": {
+        "0": "benign",
+        "1": "malignant"
+      },
+      "positive_label_zh": "恶性",
+      "negative_label_zh": "良性",
+      "n_samples": 569,
+      "n_features": 30,
+      "feature_keys": [
+        "radius1",
+        "texture1",
+        "perimeter1",
+        "area1",
+        "smoothness1",
+        "compactness1",
+        "concavity1",
+        "concave_points1",
+        "symmetry1",
+        "fractal_dimension1",
+        "radius2",
+        "texture2",
+        "perimeter2",
+        "area2",
+        "smoothness2",
+        "compactness2",
+        "concavity2",
+        "concave_points2",
+        "symmetry2",
+        "fractal_dimension2",
+        "radius3",
+        "texture3",
+        "perimeter3",
+        "area3",
+        "smoothness3",
+        "compactness3",
+        "concavity3",
+        "concave_points3",
+        "symmetry3",
+        "fractal_dimension3"
+      ],
+      "feature_schema": [
+        {
+          "key": "radius1",
+          "order": 0,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "radius",
+          "name_zh": "均值半径",
+          "name_en": "Mean Radius",
+          "unit": "—",
+          "min": 6.981,
+          "max": 28.11,
+          "mean": 14.127292
+        },
+        {
+          "key": "texture1",
+          "order": 1,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "texture",
+          "name_zh": "均值纹理",
+          "name_en": "Mean Texture",
+          "unit": "—",
+          "min": 9.71,
+          "max": 39.28,
+          "mean": 19.289649
+        },
+        {
+          "key": "perimeter1",
+          "order": 2,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "perimeter",
+          "name_zh": "均值周长",
+          "name_en": "Mean Perimeter",
+          "unit": "—",
+          "min": 43.79,
+          "max": 188.5,
+          "mean": 91.969033
+        },
+        {
+          "key": "area1",
+          "order": 3,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "area",
+          "name_zh": "均值面积",
+          "name_en": "Mean Area",
+          "unit": "—",
+          "min": 143.5,
+          "max": 2501.0,
+          "mean": 654.889104
+        },
+        {
+          "key": "smoothness1",
+          "order": 4,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "smoothness",
+          "name_zh": "均值平滑度",
+          "name_en": "Mean Smoothness",
+          "unit": "—",
+          "min": 0.05263,
+          "max": 0.1634,
+          "mean": 0.09636
+        },
+        {
+          "key": "compactness1",
+          "order": 5,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "compactness",
+          "name_zh": "均值紧凑度",
+          "name_en": "Mean Compactness",
+          "unit": "—",
+          "min": 0.01938,
+          "max": 0.3454,
+          "mean": 0.104341
+        },
+        {
+          "key": "concavity1",
+          "order": 6,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "concavity",
+          "name_zh": "均值凹陷度",
+          "name_en": "Mean Concavity",
+          "unit": "—",
+          "min": 0.0,
+          "max": 0.4268,
+          "mean": 0.088799
+        },
+        {
+          "key": "concave_points1",
+          "order": 7,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "concave_points",
+          "name_zh": "均值凹点数",
+          "name_en": "Mean Concave Points",
+          "unit": "—",
+          "min": 0.0,
+          "max": 0.2012,
+          "mean": 0.048919
+        },
+        {
+          "key": "symmetry1",
+          "order": 8,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "symmetry",
+          "name_zh": "均值对称性",
+          "name_en": "Mean Symmetry",
+          "unit": "—",
+          "min": 0.106,
+          "max": 0.304,
+          "mean": 0.181162
+        },
+        {
+          "key": "fractal_dimension1",
+          "order": 9,
+          "group": "mean",
+          "group_zh": "均值 (Mean)",
+          "group_en": "Mean",
+          "base": "fractal_dimension",
+          "name_zh": "均值分形维数",
+          "name_en": "Mean Fractal Dimension",
+          "unit": "—",
+          "min": 0.04996,
+          "max": 0.09744,
+          "mean": 0.062798
+        },
+        {
+          "key": "radius2",
+          "order": 10,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "radius",
+          "name_zh": "标准误半径",
+          "name_en": "Standard Error Radius",
+          "unit": "—",
+          "min": 0.1115,
+          "max": 2.873,
+          "mean": 0.405172
+        },
+        {
+          "key": "texture2",
+          "order": 11,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "texture",
+          "name_zh": "标准误纹理",
+          "name_en": "Standard Error Texture",
+          "unit": "—",
+          "min": 0.3602,
+          "max": 4.885,
+          "mean": 1.216853
+        },
+        {
+          "key": "perimeter2",
+          "order": 12,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "perimeter",
+          "name_zh": "标准误周长",
+          "name_en": "Standard Error Perimeter",
+          "unit": "—",
+          "min": 0.757,
+          "max": 21.98,
+          "mean": 2.866059
+        },
+        {
+          "key": "area2",
+          "order": 13,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "area",
+          "name_zh": "标准误面积",
+          "name_en": "Standard Error Area",
+          "unit": "—",
+          "min": 6.802,
+          "max": 542.2,
+          "mean": 40.337079
+        },
+        {
+          "key": "smoothness2",
+          "order": 14,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "smoothness",
+          "name_zh": "标准误平滑度",
+          "name_en": "Standard Error Smoothness",
+          "unit": "—",
+          "min": 0.001713,
+          "max": 0.03113,
+          "mean": 0.007041
+        },
+        {
+          "key": "compactness2",
+          "order": 15,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "compactness",
+          "name_zh": "标准误紧凑度",
+          "name_en": "Standard Error Compactness",
+          "unit": "—",
+          "min": 0.002252,
+          "max": 0.1354,
+          "mean": 0.025478
+        },
+        {
+          "key": "concavity2",
+          "order": 16,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "concavity",
+          "name_zh": "标准误凹陷度",
+          "name_en": "Standard Error Concavity",
+          "unit": "—",
+          "min": 0.0,
+          "max": 0.396,
+          "mean": 0.031894
+        },
+        {
+          "key": "concave_points2",
+          "order": 17,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "concave_points",
+          "name_zh": "标准误凹点数",
+          "name_en": "Standard Error Concave Points",
+          "unit": "—",
+          "min": 0.0,
+          "max": 0.05279,
+          "mean": 0.011796
+        },
+        {
+          "key": "symmetry2",
+          "order": 18,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "symmetry",
+          "name_zh": "标准误对称性",
+          "name_en": "Standard Error Symmetry",
+          "unit": "—",
+          "min": 0.007882,
+          "max": 0.07895,
+          "mean": 0.020542
+        },
+        {
+          "key": "fractal_dimension2",
+          "order": 19,
+          "group": "se",
+          "group_zh": "标准误 (Standard Error)",
+          "group_en": "Standard Error",
+          "base": "fractal_dimension",
+          "name_zh": "标准误分形维数",
+          "name_en": "Standard Error Fractal Dimension",
+          "unit": "—",
+          "min": 0.000895,
+          "max": 0.02984,
+          "mean": 0.003795
+        },
+        {
+          "key": "radius3",
+          "order": 20,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "radius",
+          "name_zh": "最差值半径",
+          "name_en": "Worst Radius",
+          "unit": "—",
+          "min": 7.93,
+          "max": 36.04,
+          "mean": 16.26919
+        },
+        {
+          "key": "texture3",
+          "order": 21,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "texture",
+          "name_zh": "最差值纹理",
+          "name_en": "Worst Texture",
+          "unit": "—",
+          "min": 12.02,
+          "max": 49.54,
+          "mean": 25.677223
+        },
+        {
+          "key": "perimeter3",
+          "order": 22,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "perimeter",
+          "name_zh": "最差值周长",
+          "name_en": "Worst Perimeter",
+          "unit": "—",
+          "min": 50.41,
+          "max": 251.2,
+          "mean": 107.261213
+        },
+        {
+          "key": "area3",
+          "order": 23,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "area",
+          "name_zh": "最差值面积",
+          "name_en": "Worst Area",
+          "unit": "—",
+          "min": 185.2,
+          "max": 4254.0,
+          "mean": 880.583128
+        },
+        {
+          "key": "smoothness3",
+          "order": 24,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "smoothness",
+          "name_zh": "最差值平滑度",
+          "name_en": "Worst Smoothness",
+          "unit": "—",
+          "min": 0.07117,
+          "max": 0.2226,
+          "mean": 0.132369
+        },
+        {
+          "key": "compactness3",
+          "order": 25,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "compactness",
+          "name_zh": "最差值紧凑度",
+          "name_en": "Worst Compactness",
+          "unit": "—",
+          "min": 0.02729,
+          "max": 1.058,
+          "mean": 0.254265
+        },
+        {
+          "key": "concavity3",
+          "order": 26,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "concavity",
+          "name_zh": "最差值凹陷度",
+          "name_en": "Worst Concavity",
+          "unit": "—",
+          "min": 0.0,
+          "max": 1.252,
+          "mean": 0.272188
+        },
+        {
+          "key": "concave_points3",
+          "order": 27,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "concave_points",
+          "name_zh": "最差值凹点数",
+          "name_en": "Worst Concave Points",
+          "unit": "—",
+          "min": 0.0,
+          "max": 0.291,
+          "mean": 0.114606
+        },
+        {
+          "key": "symmetry3",
+          "order": 28,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "symmetry",
+          "name_zh": "最差值对称性",
+          "name_en": "Worst Symmetry",
+          "unit": "—",
+          "min": 0.1565,
+          "max": 0.6638,
+          "mean": 0.290076
+        },
+        {
+          "key": "fractal_dimension3",
+          "order": 29,
+          "group": "worst",
+          "group_zh": "最差值 (Worst)",
+          "group_en": "Worst",
+          "base": "fractal_dimension",
+          "name_zh": "最差值分形维数",
+          "name_en": "Worst Fractal Dimension",
+          "unit": "—",
+          "min": 0.05504,
+          "max": 0.2075,
+          "mean": 0.083946
+        }
+      ],
+      "feature_stats": {
+        "radius1": {
+          "min": 6.981,
+          "max": 28.11,
+          "mean": 14.127292
+        },
+        "texture1": {
+          "min": 9.71,
+          "max": 39.28,
+          "mean": 19.289649
+        },
+        "perimeter1": {
+          "min": 43.79,
+          "max": 188.5,
+          "mean": 91.969033
+        },
+        "area1": {
+          "min": 143.5,
+          "max": 2501.0,
+          "mean": 654.889104
+        },
+        "smoothness1": {
+          "min": 0.05263,
+          "max": 0.1634,
+          "mean": 0.09636
+        },
+        "compactness1": {
+          "min": 0.01938,
+          "max": 0.3454,
+          "mean": 0.104341
+        },
+        "concavity1": {
+          "min": 0.0,
+          "max": 0.4268,
+          "mean": 0.088799
+        },
+        "concave_points1": {
+          "min": 0.0,
+          "max": 0.2012,
+          "mean": 0.048919
+        },
+        "symmetry1": {
+          "min": 0.106,
+          "max": 0.304,
+          "mean": 0.181162
+        },
+        "fractal_dimension1": {
+          "min": 0.04996,
+          "max": 0.09744,
+          "mean": 0.062798
+        },
+        "radius2": {
+          "min": 0.1115,
+          "max": 2.873,
+          "mean": 0.405172
+        },
+        "texture2": {
+          "min": 0.3602,
+          "max": 4.885,
+          "mean": 1.216853
+        },
+        "perimeter2": {
+          "min": 0.757,
+          "max": 21.98,
+          "mean": 2.866059
+        },
+        "area2": {
+          "min": 6.802,
+          "max": 542.2,
+          "mean": 40.337079
+        },
+        "smoothness2": {
+          "min": 0.001713,
+          "max": 0.03113,
+          "mean": 0.007041
+        },
+        "compactness2": {
+          "min": 0.002252,
+          "max": 0.1354,
+          "mean": 0.025478
+        },
+        "concavity2": {
+          "min": 0.0,
+          "max": 0.396,
+          "mean": 0.031894
+        },
+        "concave_points2": {
+          "min": 0.0,
+          "max": 0.05279,
+          "mean": 0.011796
+        },
+        "symmetry2": {
+          "min": 0.007882,
+          "max": 0.07895,
+          "mean": 0.020542
+        },
+        "fractal_dimension2": {
+          "min": 0.000895,
+          "max": 0.02984,
+          "mean": 0.003795
+        },
+        "radius3": {
+          "min": 7.93,
+          "max": 36.04,
+          "mean": 16.26919
+        },
+        "texture3": {
+          "min": 12.02,
+          "max": 49.54,
+          "mean": 25.677223
+        },
+        "perimeter3": {
+          "min": 50.41,
+          "max": 251.2,
+          "mean": 107.261213
+        },
+        "area3": {
+          "min": 185.2,
+          "max": 4254.0,
+          "mean": 880.583128
+        },
+        "smoothness3": {
+          "min": 0.07117,
+          "max": 0.2226,
+          "mean": 0.132369
+        },
+        "compactness3": {
+          "min": 0.02729,
+          "max": 1.058,
+          "mean": 0.254265
+        },
+        "concavity3": {
+          "min": 0.0,
+          "max": 1.252,
+          "mean": 0.272188
+        },
+        "concave_points3": {
+          "min": 0.0,
+          "max": 0.291,
+          "mean": 0.114606
+        },
+        "symmetry3": {
+          "min": 0.1565,
+          "max": 0.6638,
+          "mean": 0.290076
+        },
+        "fractal_dimension3": {
+          "min": 0.05504,
+          "max": 0.2075,
+          "mean": 0.083946
+        }
+      },
+      "class_balance": {
+        "0": 357,
+        "1": 212
+      },
+      "default_values": [
+        14.127291739894552,
+        19.289648506151142,
+        91.96903339191564,
+        654.8891036906855,
+        0.0963602811950791,
+        0.10434098418277679,
+        0.0887993158172232,
+        0.04891914586994728,
+        0.18116186291739894,
+        0.06279760984182776,
+        0.40517205623901575,
+        1.2168534270650264,
+        2.8660592267135327,
+        40.337079086116,
+        0.007040978910369069,
+        0.025478138840070295,
+        0.03189371634446397,
+        0.011796137082601054,
+        0.02054229876977153,
+        0.0037949038664323374,
+        16.269189806678387,
+        25.677223198594024,
+        107.26121265377857,
+        880.5831282952548,
+        0.13236859402460457,
+        0.25426504393673116,
+        0.27218848330404216,
+        0.11460622319859401,
+        0.2900755711775044,
+        0.0839458172231986
+      ],
+      "models": {
+        "lr": {
+          "id": "breast_lr_v1.0",
+          "disease": "breast",
+          "algorithm": "lr",
+          "algorithm_zh": "逻辑回归",
+          "version": "1.0",
+          "path": "ml/registry/models/breast_lr_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.2443,
+          "cv": {
+            "accuracy_mean": 0.9736,
+            "roc_auc_mean": 0.9958,
+            "f1_mean": 0.964,
+            "precision_mean": 0.9771,
+            "recall_mean": 0.9529,
+            "accuracy_std": 0.0149,
+            "roc_auc_std": 0.0047,
+            "f1_std": 0.0207,
+            "precision_std": 0.028,
+            "recall_std": 0.0399
+          },
+          "test": {
+            "accuracy": 0.9825,
+            "precision": 0.9762,
+            "recall": 0.9762,
+            "specificity": 0.9861,
+            "f1": 0.9762,
+            "roc_auc": 0.9944,
+            "brier": 0.0174,
+            "threshold": 0.2443,
+            "confusion_matrix": {
+              "tn": 71,
+              "fp": 1,
+              "fn": 1,
+              "tp": 41
+            }
+          }
+        },
+        "rf": {
+          "id": "breast_rf_v1.0",
+          "disease": "breast",
+          "algorithm": "rf",
+          "algorithm_zh": "随机森林",
+          "version": "1.0",
+          "path": "ml/registry/models/breast_rf_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.5166,
+          "cv": {
+            "accuracy_mean": 0.9604,
+            "roc_auc_mean": 0.9878,
+            "f1_mean": 0.9469,
+            "precision_mean": 0.9483,
+            "recall_mean": 0.9471,
+            "accuracy_std": 0.0179,
+            "roc_auc_std": 0.0072,
+            "f1_std": 0.0239,
+            "precision_std": 0.0312,
+            "recall_std": 0.039
+          },
+          "test": {
+            "accuracy": 0.9737,
+            "precision": 1.0,
+            "recall": 0.9286,
+            "specificity": 1.0,
+            "f1": 0.963,
+            "roc_auc": 0.9911,
+            "brier": 0.0296,
+            "threshold": 0.5166,
+            "confusion_matrix": {
+              "tn": 72,
+              "fp": 0,
+              "fn": 3,
+              "tp": 39
+            }
+          }
+        },
+        "xgb": {
+          "id": "breast_xgb_v1.0",
+          "disease": "breast",
+          "algorithm": "xgb",
+          "algorithm_zh": "XGBoost",
+          "version": "1.0",
+          "path": "ml/registry/models/breast_xgb_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.1701,
+          "cv": {
+            "accuracy_mean": 0.9736,
+            "roc_auc_mean": 0.9935,
+            "f1_mean": 0.9646,
+            "precision_mean": 0.9711,
+            "recall_mean": 0.9588,
+            "accuracy_std": 0.0088,
+            "roc_auc_std": 0.0046,
+            "f1_std": 0.0115,
+            "precision_std": 0.0256,
+            "recall_std": 0.0144
+          },
+          "test": {
+            "accuracy": 0.9912,
+            "precision": 1.0,
+            "recall": 0.9762,
+            "specificity": 1.0,
+            "f1": 0.988,
+            "roc_auc": 0.9959,
+            "brier": 0.017,
+            "threshold": 0.1701,
+            "confusion_matrix": {
+              "tn": 72,
+              "fp": 0,
+              "fn": 1,
+              "tp": 41
+            }
+          }
+        }
+      },
+      "champion": "xgb",
+      "champion_id": "breast_xgb_v1.0"
+    },
+    "heart": {
+      "disease": "heart",
+      "display_zh": "心脏病",
+      "display_en": "Heart Disease",
+      "label_map": {
+        "0": "negative",
+        "1": "positive"
+      },
+      "positive_label_zh": "患病",
+      "negative_label_zh": "健康",
+      "n_samples": 303,
+      "n_features": 13,
+      "feature_keys": [
+        "age",
+        "sex",
+        "cp",
+        "trestbps",
+        "chol",
+        "fbs",
+        "restecg",
+        "thalach",
+        "exang",
+        "oldpeak",
+        "slope",
+        "ca",
+        "thal"
+      ],
+      "feature_schema": [
+        {
+          "key": "age",
+          "order": 0,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "age",
+          "name_zh": "年龄",
+          "name_en": "Age",
+          "unit": "岁 / years",
+          "min": 29.0,
+          "max": 77.0,
+          "mean": 54.438944
+        },
+        {
+          "key": "sex",
+          "order": 1,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "sex",
+          "name_zh": "性别",
+          "name_en": "Sex",
+          "unit": "1=男 0=女",
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.679868
+        },
+        {
+          "key": "cp",
+          "order": 2,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "cp",
+          "name_zh": "胸痛类型",
+          "name_en": "Chest Pain Type",
+          "unit": "1-4",
+          "min": 1.0,
+          "max": 4.0,
+          "mean": 3.158416
+        },
+        {
+          "key": "trestbps",
+          "order": 3,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "trestbps",
+          "name_zh": "静息血压",
+          "name_en": "Resting BP",
+          "unit": "mm Hg",
+          "min": 94.0,
+          "max": 200.0,
+          "mean": 131.689769
+        },
+        {
+          "key": "chol",
+          "order": 4,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "chol",
+          "name_zh": "血清胆固醇",
+          "name_en": "Cholesterol",
+          "unit": "mg/dl",
+          "min": 126.0,
+          "max": 564.0,
+          "mean": 246.693069
+        },
+        {
+          "key": "fbs",
+          "order": 5,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "fbs",
+          "name_zh": "空腹血糖>120",
+          "name_en": "Fasting Blood Sugar",
+          "unit": "1=是 0=否",
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.148515
+        },
+        {
+          "key": "restecg",
+          "order": 6,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "restecg",
+          "name_zh": "静息心电图",
+          "name_en": "Resting ECG",
+          "unit": "0-2",
+          "min": 0.0,
+          "max": 2.0,
+          "mean": 0.990099
+        },
+        {
+          "key": "thalach",
+          "order": 7,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "thalach",
+          "name_zh": "最大心率",
+          "name_en": "Max Heart Rate",
+          "unit": "bpm",
+          "min": 71.0,
+          "max": 202.0,
+          "mean": 149.607261
+        },
+        {
+          "key": "exang",
+          "order": 8,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "exang",
+          "name_zh": "运动诱发心绞痛",
+          "name_en": "Exercise Angina",
+          "unit": "1=是 0=否",
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.326733
+        },
+        {
+          "key": "oldpeak",
+          "order": 9,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "oldpeak",
+          "name_zh": "ST 段压低",
+          "name_en": "ST Depression",
+          "unit": "mm",
+          "min": 0.0,
+          "max": 6.2,
+          "mean": 1.039604
+        },
+        {
+          "key": "slope",
+          "order": 10,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "slope",
+          "name_zh": "ST 段斜率",
+          "name_en": "ST Slope",
+          "unit": "1-3",
+          "min": 1.0,
+          "max": 3.0,
+          "mean": 1.60066
+        },
+        {
+          "key": "ca",
+          "order": 11,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "ca",
+          "name_zh": "主血管数",
+          "name_en": "Major Vessels",
+          "unit": "0-3",
+          "min": 0.0,
+          "max": 3.0,
+          "mean": 0.663366
+        },
+        {
+          "key": "thal",
+          "order": 12,
+          "group": "clinical",
+          "group_zh": "临床指标 (Clinical)",
+          "group_en": "Clinical",
+          "base": "thal",
+          "name_zh": "铊扫描结果",
+          "name_en": "Thal",
+          "unit": "3=正常 6=固定缺陷 7=可逆缺陷",
+          "min": 3.0,
+          "max": 7.0,
+          "mean": 4.722772
+        }
+      ],
+      "feature_stats": {
+        "age": {
+          "min": 29.0,
+          "max": 77.0,
+          "mean": 54.438944
+        },
+        "sex": {
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.679868
+        },
+        "cp": {
+          "min": 1.0,
+          "max": 4.0,
+          "mean": 3.158416
+        },
+        "trestbps": {
+          "min": 94.0,
+          "max": 200.0,
+          "mean": 131.689769
+        },
+        "chol": {
+          "min": 126.0,
+          "max": 564.0,
+          "mean": 246.693069
+        },
+        "fbs": {
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.148515
+        },
+        "restecg": {
+          "min": 0.0,
+          "max": 2.0,
+          "mean": 0.990099
+        },
+        "thalach": {
+          "min": 71.0,
+          "max": 202.0,
+          "mean": 149.607261
+        },
+        "exang": {
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.326733
+        },
+        "oldpeak": {
+          "min": 0.0,
+          "max": 6.2,
+          "mean": 1.039604
+        },
+        "slope": {
+          "min": 1.0,
+          "max": 3.0,
+          "mean": 1.60066
+        },
+        "ca": {
+          "min": 0.0,
+          "max": 3.0,
+          "mean": 0.663366
+        },
+        "thal": {
+          "min": 3.0,
+          "max": 7.0,
+          "mean": 4.722772
+        }
+      },
+      "class_balance": {
+        "0": 164,
+        "1": 139
+      },
+      "default_values": [
+        54.43894389438944,
+        0.6798679867986799,
+        3.1584158415841586,
+        131.68976897689768,
+        246.69306930693068,
+        0.1485148514851485,
+        0.9900990099009901,
+        149.6072607260726,
+        0.32673267326732675,
+        1.0396039603960396,
+        1.6006600660066006,
+        0.6633663366336634,
+        4.7227722772277225
+      ],
+      "models": {
+        "lr": {
+          "id": "heart_lr_v1.0",
+          "disease": "heart",
+          "algorithm": "lr",
+          "algorithm_zh": "逻辑回归",
+          "version": "1.0",
+          "path": "ml/registry/models/heart_lr_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.6633,
+          "cv": {
+            "accuracy_mean": 0.8264,
+            "roc_auc_mean": 0.896,
+            "f1_mean": 0.8007,
+            "precision_mean": 0.8441,
+            "recall_mean": 0.7652,
+            "accuracy_std": 0.0172,
+            "roc_auc_std": 0.0148,
+            "f1_std": 0.026,
+            "precision_std": 0.0337,
+            "recall_std": 0.0547
+          },
+          "test": {
+            "accuracy": 0.9016,
+            "precision": 0.9231,
+            "recall": 0.8571,
+            "specificity": 0.9394,
+            "f1": 0.8889,
+            "roc_auc": 0.9556,
+            "brier": 0.097,
+            "threshold": 0.6633,
+            "confusion_matrix": {
+              "tn": 31,
+              "fp": 2,
+              "fn": 4,
+              "tp": 24
+            }
+          }
+        },
+        "rf": {
+          "id": "heart_rf_v1.0",
+          "disease": "heart",
+          "algorithm": "rf",
+          "algorithm_zh": "随机森林",
+          "version": "1.0",
+          "path": "ml/registry/models/heart_rf_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.6321,
+          "cv": {
+            "accuracy_mean": 0.8098,
+            "roc_auc_mean": 0.8809,
+            "f1_mean": 0.7838,
+            "precision_mean": 0.8264,
+            "recall_mean": 0.7557,
+            "accuracy_std": 0.0169,
+            "roc_auc_std": 0.0347,
+            "f1_std": 0.0212,
+            "precision_std": 0.0659,
+            "recall_std": 0.0756
+          },
+          "test": {
+            "accuracy": 0.9344,
+            "precision": 0.9286,
+            "recall": 0.9286,
+            "specificity": 0.9394,
+            "f1": 0.9286,
+            "roc_auc": 0.9589,
+            "brier": 0.088,
+            "threshold": 0.6321,
+            "confusion_matrix": {
+              "tn": 31,
+              "fp": 2,
+              "fn": 2,
+              "tp": 26
+            }
+          }
+        },
+        "xgb": {
+          "id": "heart_xgb_v1.0",
+          "disease": "heart",
+          "algorithm": "xgb",
+          "algorithm_zh": "XGBoost",
+          "version": "1.0",
+          "path": "ml/registry/models/heart_xgb_v1.0.joblib",
+          "calibrated": true,
+          "threshold": 0.6834,
+          "cv": {
+            "accuracy_mean": 0.7727,
+            "roc_auc_mean": 0.854,
+            "f1_mean": 0.7511,
+            "precision_mean": 0.7587,
+            "recall_mean": 0.7474,
+            "accuracy_std": 0.0294,
+            "roc_auc_std": 0.0295,
+            "f1_std": 0.0284,
+            "precision_std": 0.0482,
+            "recall_std": 0.0477
+          },
+          "test": {
+            "accuracy": 0.9016,
+            "precision": 0.8929,
+            "recall": 0.8929,
+            "specificity": 0.9091,
+            "f1": 0.8929,
+            "roc_auc": 0.9351,
+            "brier": 0.1053,
+            "threshold": 0.6834,
+            "confusion_matrix": {
+              "tn": 30,
+              "fp": 3,
+              "fn": 3,
+              "tp": 25
+            }
+          }
+        }
+      },
+      "champion": "rf",
+      "champion_id": "heart_rf_v1.0"
+    }
+  }
+}
