@@ -1,0 +1,40 @@
+# --------------------------------------------------------------------------- #
+# Keeps the build context small and, more importantly, keeps secrets out of it.
+#
+# `.env` is the critical line: env_file injects configuration at run time, so it
+# never needs to be in the context — and if it were, a single `COPY .` would
+# bake the API key into an image layer that survives deletion in later layers.
+# --------------------------------------------------------------------------- #
+
+.env
+.env.*
+!.env.example
+
+.git
+.github
+.vscode
+
+node_modules
+frontend/node_modules
+frontend/dist
+frontend/.vite
+
+**/__pycache__
+**/*.pyc
+**/*.pyo
+.pytest_cache
+backend/.pytest_cache
+backend/coverage.xml
+backend/htmlcov
+
+# Rebuilt inside the image from the committed CSVs (they are gitignored).
+ml/registry/models
+
+# Local runtime state, and the screenshots which are documentation only.
+**/*.db
+backend/bcdx.db
+docs/screenshots
+
+# Development tooling — not needed by either image.
+_tools
+*.log

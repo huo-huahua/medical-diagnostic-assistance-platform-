@@ -32,7 +32,8 @@ BC-Dx Platform 把一个机器学习毕业设计原型重构成了**可直接开
 > 详细说明：[`docs/QA_COMPARISON.md`](docs/QA_COMPARISON.md)（问答对比 · 三条路径与成本）、
 > [`docs/LLM_INTEGRATION.md`](docs/LLM_INTEGRATION.md)（接入大模型 · 服务商、自检与错误分类）、
 > [`docs/KNOWLEDGE_BASE.md`](docs/KNOWLEDGE_BASE.md)（知识库 · 内容、切块与**混合检索**）、
-> [`docs/TESTING.md`](docs/TESTING.md)（测试 · 427 个用例在防哪些 bug）。
+> [`docs/TESTING.md`](docs/TESTING.md)（测试 · 427 个后端 + 39 个前端用例在防哪些 bug）、
+> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)（部署 · 一键启动与每个容器配置的来由）。
 
 ## 相比原型的修正
 
@@ -89,7 +90,22 @@ BC-Dx Platform 把一个机器学习毕业设计原型重构成了**可直接开
 - Python 3.11+
 - Node.js 20+
 
-### 一键启动（Windows）
+### 一键启动（Docker，推荐给第一次接触本项目的人）
+
+```bash
+cp .env.example .env        # 首次需要；密钥只在这一步之后进容器，不进镜像
+docker compose up --build
+```
+
+然后打开 <http://localhost:8080>。后端在 <http://localhost:8000/docs>。
+
+> 首次启动会下载约 470 MB 的句向量模型，之后由命名卷 `hf-cache` 缓存；
+> 模型产物在**构建镜像时**从已提交的 CSV 训练出来（与 CI 行为一致），所以新克隆的仓库也能直接跑。
+>
+> 想改端口：改 `docker-compose.yml` 里的 `8080:80`，并同步 `CORS_ORIGINS`——
+> 否则浏览器的请求会在到达应用之前就被拒掉，报错看起来却像网络问题。
+
+### 一键启动（Windows，不用 Docker）
 
 双击 `scripts\dev.bat`，会自动探测 Python 环境、按需训练模型、开两个窗口起前后端。
 
@@ -384,7 +400,9 @@ curl -s -X POST http://127.0.0.1:8000/api/v1/llm/test -H "Authorization: Bearer 
 | 项 | 状态 |
 |---|---|
 | 后端自动化测试 | **427 个 pytest 用例**，约 60–90 秒跑完，全部通过 |
+| 前端自动化测试 | **39 个 Vitest 用例**（`npm run test`），覆盖统一响应信封、错误文案降级链、SSE 流式解析、错误边界与格式化工具 |
 | 前端类型检查与构建 | `npm run typecheck` / `npm run build`（CI 中强制） |
+| 一键部署 | `docker compose up --build`（后端多阶段构建 + 前端 node→nginx，含健康检查与数据卷） |
 | 持续集成 | GitHub Actions：后端测试 + 前端构建，两个独立 job |
 | 响应信封一致性 | 有断言覆盖——`/api/v1` 下所有路由必须走统一信封，**包括 422**（`RequestValidationError` 要显式注册，否则它自带的 handler 会绕开信封） |
 | 错误信息可操作 | 校验失败时 `message` 会**点名出错字段**（如 `Validation failed: password — Value error, Password must mix letters and digits`），而不是笼统的"请求失败"；前端按 `message → detail → 超时 → 连不上` 逐级降级 |

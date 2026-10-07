@@ -1,15 +1,18 @@
 # 自动化测试与持续集成
 
-> **427 个测试，一次运行约 60–90 秒，全部通过。**（本机实测 86 秒；跑之前先确认没有别的
-> 重活在同机争 CPU —— 同一个套件在负载下能跑到 1.5 分钟以上，**别拿那种耗时当基准**。）
+> **后端 427 个 + 前端 39 个，全部通过。** 后端一次运行约 60–90 秒（本机实测 86 秒；跑之前先确认没有别的
+> 重活在同机争 CPU —— 同一个套件在负载下能跑到 1.5 分钟以上，**别拿那种耗时当基准**）。
+> 前端约 5 秒。
 > 对应优化项 [`OPTIMIZATION_BACKLOG.md`](OPTIMIZATION_BACKLOG.md) 第 1 条（自动化测试）、第 2 条（CI 流水线）、
-> 第 8 条（默认密钥校验）与第 15 条（混合检索 + 重排）。
+> 第 3 条（Docker 一键部署）、第 7 条（前端测试）与第 8 条（默认密钥校验）、第 15 条（混合检索 + 重排）。
 
 这份文档不只是"怎么跑测试"，更重要的是**每个测试在防哪个 bug**——因为这里的绝大多数测试都不是为了证明代码能跑，而是为了证明**某类错误不会再回来**。
 
 ---
 
 ## 一、怎么跑
+
+### 后端
 
 ```bash
 cd backend
@@ -44,9 +47,23 @@ pytest --cov=app --cov-report=term-missing  # 覆盖率（需装 requirements-de
 > 所以 token 记账、成本估算、缓存与错误分类都是**真的在跑**，只是没出网、没花钱。真实密钥的端到端验证
 > 仍然只在人工/演示流程里做（见 [`LLM_INTEGRATION.md`](LLM_INTEGRATION.md)）。
 
+### 前端
+
+```bash
+cd frontend
+npm run test          # 跑一次就退出（CI 用这个）
+npm run test:watch    # 改动即重跑（开发用）
+npm run test:coverage # 出 v8 覆盖率报告（htmlcov 在 frontend/coverage/）
+```
+
+不需要起后端、不需要浏览器：`vitest` 跑在 `jsdom` 里，所有 HTTP 请求都被 `vi.mock` 掉的 axios 适配器拦下，
+因此**不发一个真实请求、不花一分钱**。首次安装依赖时会多装 6 个 devDependency（见 `package.json`）。
+
 ---
 
 ## 二、测试分布
+
+### 后端（427）
 
 | 文件 | 用例数 | 覆盖什么 |
 |---|---:|---|
@@ -61,7 +78,20 @@ pytest --cov=app --cov-report=term-missing  # 覆盖率（需装 requirements-de
 | `tests/test_chunking.py` | 16 | 切块结构、窗口约束、重叠回归、真实知识库集成 |
 | **合计** | **427** | |
 
-测试分两层：
+### 前端（39）
+
+| 文件 | 用例数 | 覆盖什么 |
+|---|---:|---|
+| `src/api/index.test.ts` | 16 | 响应信封的解包、`explain()` 六层错误文案兜底、401 清 token 与回调、`ApiError` 携带 code/status/requestId、SSE 三条分支与**跨 chunk 拆帧**、Bearer 头 |
+| `src/lib/format.test.ts` | 17 | `pct` / `num` / `signed` 的精度与边界、`formatDateTime` / `formatRelative`、`featurePrecision`、`CONFIDENCE_META` 与 `ALGO_LABEL` 的不变量 |
+| `src/components/ErrorBoundary.test.tsx` | 6 | 正常渲染子组件、崩溃兜底、区域命名、修好原因后重试恢复且回调触发、**重试仍崩时兜底页不消失**、`componentStack` 进入 `<pre>` |
+| **合计** | **39** | |
+
+前端这层的定位是**纯前端契约**，不碰后端：所有 axios 调用在 `index.test.ts` 里被桩替换成可控的
+`{ status, data }`，所以测的是"前端拿到某种响应会怎么表现"，而不是"后端会不会产生这种响应"。
+后端契约由那 427 个 pytest 守着。
+
+后端测试分两层：
 
 - **单元层**（`test_gateway.py`、`test_llm_providers.py`、`test_chunking.py` 的大部分）：不启动应用，毫秒级，跑得快；
 - **集成层**（其余）：通过 `TestClient` 走完整的 FastAPI 栈，标记为 `integration`。
@@ -276,6 +306,24 @@ pytest -m slow           # 只跑需要真实嵌入模型的用例
 | 反过来，闸门改读融合分（排序用的数，量纲不符） | `test_a_genuinely_weak_retrieval_is_still_refused`——真正弱的命中**必须**仍然被拒 |
 | **有人"顺手统一"两个闸门**：余弦闸门取命中里的最大值，词法闸门却只读 `hits[0]`，看起来像不一致 | `test_coverage_is_measured_against_the_top_hit_not_the_best_hit`——断言覆盖率只按 `hits[0]` 算。统一成取最大值后，真实语料上那 4 个问题的覆盖率会达到 0.125–0.333（阈值 0.12），于是它们**不再被拒答，而是被自信地答以错误的小节**。误拒答可见、可修；误答隐形。这个不对称是承重的 |
 
+### 3.9 前端契约（`src/api/index.test.ts` / `src/lib/format.test.ts` / `src/components/ErrorBoundary.test.tsx`）
+
+前端这 39 个用例**全部**是"踩过之后补的"或"补的时候就想清楚了防什么"，没有一条是为了凑数。
+
+| 风险 | 现在由谁守着 |
+|---|---|
+| **页面只显示"请求失败"，四个字，没有原因**（本项目真实发生过：后端 500 了，用户看到的就这四个人字） | `explain()` 的六层兜底各有一条用例：`message` → 字符串 `detail` → FastAPI 的 `{loc,msg}[]`（自动剥掉 `body` 这一层噪音） → `ECONNABORTED` → `Network Error` → `请求失败（HTTP <status>）`。最后一条 `test_it_never_returns_an_empty_string` 是**兜底的兜底**：文案再怎么改，也不能返回一个空串给用户 |
+| 后端改了信封结构，前端整站取到 `undefined` | 信封解包用例断言 `unwrap()` 取的是 `res.data.data`，且 `data` 为 `null` 时**原样返回 null 而不是抛错** |
+| 401 之后 token 留在 localStorage，下次刷新还是带着过期凭证 | `test_a_401_clears_the_token_and_notifies`——断言 token 被清、回调被调一次 |
+| **SSE 一帧被 TCP 拆成两半，触发 JSON 解析异常** | `test_it_reassembles_a_frame_split_across_chunks`。`askStream` 自己维护缓冲区按 `\n\n` 切帧，这条用例喂的是一个**被劈成两半的 `data:` 行**。真实网络里这是一定会发生的，不做就是不测 |
+| 流式结束后状态停在"进行中"，UI 一直转圈 | `test_it_reports_done` / `test_it_reports_a_failure_message`（`meta` / `delta` / `done` / 失败四类事件各有用例） |
+| 流式请求丢了 Authorization 头（EventSource 发不了自定义头，所以用的是 fetch） | `test_it_sends_the_bearer_token` |
+| **格式化口径漂移**：百分比到底是 `47.3%` 还是 `0.473`、时间用本地时区还是 UTC | `format.test.ts` 逐个钉死 `pct` / `num` / `signed` / `formatDateTime` / `formatRelative` 的输出字符串，以及 `featurePrecision` 对不同特征单位的取值 |
+| 置信度色带/算法中文名漏配一个枚举值 → 页面上出现英文原值 | `CONFIDENCE_META` 与 `ALGO_LABEL` 的不变量用例：断言**每个**用到的枚举键都有对应条目，而不是只测其中两三个 |
+| **错误边界"重试"按钮点了没反应** | `test_it_recovers_when_the_crash_is_gone`：先把崩溃原因修好再点重试，断言子组件重新渲染且 `onReset` 被调用 |
+| 反过来——**重试仍然崩溃时兜底页消失了**，页面变成白屏 | `test_it_stays_on_the_fallback_when_retrying_hits_the_same_crash`。这两条必须**成对**存在：只有前一条的话，一个"重试后无条件清掉错误状态"的实现也能通过 |
+| 复制错误详情时拿不到组件栈 | `test_it_shows_the_error_and_the_component_stack`——读 `<pre>` 的 `textContent`，断言异常消息与 `组件调用栈` 都在里面 |
+
 ---
 
 ## 四、测试基建的几个决定
@@ -399,13 +447,15 @@ if stats.get("oversize"):
 
 同一条不变量在测试里也断言了，为什么还要单独写一步？因为**在 pytest 之前失败，日志更短、指向更明确**。当这条断言挂掉时，你看到的第一行就是原因，而不是埋在 427 个用例输出里的某一行。
 
-### 5.4 `frontend` —— 类型检查 + 构建
+### 5.4 `frontend` —— 测试 + 类型检查 + 构建
 
 ```
-checkout → setup-node 20（带 npm 缓存）→ npm ci → npm run typecheck → npm run build
+checkout → setup-node 20（带 npm 缓存）→ npm ci → npm run test → npm run typecheck → npm run build
 ```
 
 `build` 本身就是 `tsc -b && vite build`，所以 `typecheck` 那一步看起来重复——它重复是为了**让失败原因一眼可辨**：类型错误就是类型错误，不会和打包错误混在一起。
+
+`npm run test` 放在 `typecheck` **之前**：测试跑在 jsdom 里、不发真实请求，几秒就完事，而它能抓住的契约类错误（信封解包、错误文案、SSE 拆帧）比类型错误更值得先知道。
 
 > CI 里**没有** lint 步骤。`package.json` 原先有一个 `lint` 脚本，指向既未安装、也未在 `devDependencies` 里声明的 `eslint`——它是跑不起来的死脚本，已经删掉。**与其在 CI 里放一个没人验证过的步骤，不如不放。**
 
@@ -420,7 +470,7 @@ checkout → setup-node 20（带 npm 缓存）→ npm ci → npm run typecheck �
 
 | 缺口 | 说明 |
 |---|---|
-| **前端没有自动化测试** | 三个页面（批量评估、问答对比、外部模型连接面板）目前靠 Puppeteer 截图脚本做人工核对，没有组件测试或 E2E。这是当前最大的缺口。 |
+| **前端只有单元/契约测试，没有 E2E** | 39 个用例覆盖的是"前端拿到某种响应会怎么表现"，**没有一个用例真的开浏览器点一遍**。三个页面（批量评估、问答对比、外部模型连接面板）仍靠 Puppeteer 截图脚本做人工核对。组件级渲染测试也只有 `ErrorBoundary` 一个——其余页面依赖大量图表与路由状态，先不强行铺开。 |
 | **没有 lint / 格式化检查** | Python 侧无 ruff/flake8，前端无 eslint。 |
 | **真实密钥的端到端调用不在 CI 里** | CI 与本地测试都强制 `LLM_ENABLED=false`；外部路径的**真调用**靠演示通道（`httpx.MockTransport`）覆盖 SDK 序列化 / 重试 / 错误映射，但真密钥、真限流、真计费只在人工流程里验证。这是刻意的：把真 API 放进 CI 会引入 flaky 与费用。 |
 | **数据库迁移未测试** | 表结构由 `Base.metadata.create_all` 创建，还没接入 Alembic。 |
@@ -436,5 +486,7 @@ checkout → setup-node 20（带 npm 缓存）→ npm ci → npm run typecheck �
 | `backend/pytest.ini` | pytest 配置、标记（`slow` / `integration`）、`testpaths` |
 | `backend/requirements-dev.txt` | 测试依赖（pytest / pytest-cov / httpx） |
 | `backend/tests/conftest.py` | 环境变量、会话级 fixture、一次性数据库清理 |
+| `frontend/vite.config.ts` | **前端测试配置**：`environment: 'jsdom'`、`setupFiles`、`include`、`coverage`（v8）。`defineConfig` 从 `vitest/config` 导入而不是 `vite`，否则 `test` 字段没有类型 |
+| `frontend/src/test/setup.ts` | 引入 `@testing-library/jest-dom/vitest`；`afterEach` 里 `cleanup()` + `localStorage.clear()`（否则登录态会跨用例泄漏） |
 | `.github/workflows/ci.yml` | CI 流水线 |
-| `.gitignore` | 忽略 `.pytest_cache/`、`.coverage`、`htmlcov/`、`coverage.xml` |
+| `.gitignore` | 忽略 `.pytest_cache/`、`.coverage`、`htmlcov/`、`coverage.xml`、`frontend/coverage/` |

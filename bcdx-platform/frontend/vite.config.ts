@@ -1,4 +1,7 @@
-import { defineConfig } from 'vite'
+// `vitest/config` rather than `vite`: it is the same helper with the `test`
+// block typed, so the config stays in one file instead of growing a second one
+// that has to be kept in sync.
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
@@ -6,6 +9,20 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    // Co-located with the code they cover, same convention as the backend.
+    include: ['src/**/*.test.{ts,tsx}'],
+    // A jsdom run is not a browser: recharts cannot lay out an SVG, so chart
+    // rendering is asserted through its data, never its pixels.
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/test/**', 'src/types/**', 'src/main.tsx'],
+    },
   },
   server: {
     port: 5173,

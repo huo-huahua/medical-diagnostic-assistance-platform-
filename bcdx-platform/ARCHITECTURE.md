@@ -34,15 +34,24 @@ bcdx-platform/
 ├── .env                               本地配置（已 gitignore，含 SECRET_KEY）
 ├── .env.example                       配置模板（可提交）
 │
-├── .github/workflows/ci.yml           CI：后端测试 + 前端类型检查与构建
+├── .github/workflows/ci.yml           CI：后端测试 + 前端测试、类型检查与构建
+├── docker-compose.yml                 一键部署：后端 + 前端两个服务、两个数据卷
+├── .dockerignore                      把 .env / 模型产物 / 截图挡在构建上下文之外
 ├── frontend/                          ── 前端：React 18 + TS + Vite 6 + Tailwind
+│   ├── Dockerfile                     两阶段：node 构建 → nginx 静态服务
+│   └── nginx.conf                     生产路由：反代 /api/ 与 /health、SPA 回退、SSE 不缓冲
 ├── backend/                           ── 后端：FastAPI + SQLAlchemy（含 tests/）
+│   └── Dockerfile                     CPU torch 优先安装 + 构建期训练出模型产物
 ├── ml/                                ── 机器学习：训练管线与模型产物
 ├── knowledge/                         ── 知识库：RAG 检索语料
 ├── docs/                              ── 文档：模型卡与专题文档
 ├── scripts/                           ── 脚本：一键启动
-└── _tools/                            ── 开发工具（截图脚本，非运行时）
+└── _tools/                            ── 开发工具（截图、检索 A/B、冒烟、脚本编码修复，非运行时）
 ```
+
+> **两个 Dockerfile 的构建上下文都是仓库根**，不是各自的目录。
+> 后端按 `REPO_ROOT`（`app/core/config.py` 的 `parents[3]`）解析知识库与模型注册表，
+> 镜像内部必须复刻仓库的目录形状。详见 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)。
 
 ---
 
@@ -258,21 +267,29 @@ docs/
 ├── KNOWLEDGE_BASE.md                   知识库内容、切块策略、拒答闸门
 ├── QA_COMPARISON.md                    三路径问答对比的设计与度量口径
 ├── LLM_INTEGRATION.md                  大模型接入：8 家服务商、优先级、探活、错误分类、多模型
-├── TESTING.md                          测试与 CI、逐条回归清单
+├── TESTING.md                          测试与 CI、逐条回归清单（427 后端 + 39 前端）
+├── DEPLOYMENT.md                       Docker 一键部署与每个容器配置的来由
 ├── OPTIMIZATION_BACKLOG.md             30 条优化项与状态
 ├── PROJECT_MAP.md                      全局总览与使用索引
 └── screenshots/                        18 张真实前端截图（含平板/手机档）
 
 scripts/
 ├── dev.bat                             Windows 一键启动（自动检查/训练模型）
-└── dev.sh                              Unix 一键启动（含健康检查）
+├── dev.sh                              Unix 一键启动（含健康检查）
+├── verify-docker.sh                    Docker 部署后自检 · bash 版（10 项，含 SSE 是否真在流）
+└── verify-docker.ps1                   Docker 部署后自检 · PowerShell 版（同样 10 项；
+                                        UTF-8 BOM + CRLF，否则 PS 5.1 读中文会乱码）
 
 _tools/
 ├── shoot-new-pages.cjs                 Puppeteer 截图脚本，桌面 1680×1050（开发者手动运行）
-└── shoot-responsive.cjs               Puppeteer 截图脚本，平板/手机档 + 布局断言
+├── shoot-responsive.cjs                Puppeteer 截图脚本，平板/手机档 + 布局断言
+├── eval_retrieval.py                   检索 A/B 工具（dense / hybrid / +rerank）
+├── smoke_all_endpoints.py              全接口冒烟测试
+└── _fix_ps1_encoding.py                给 .ps1 补 UTF-8 BOM 并统一 CRLF
+                                        （PS 5.1 无 BOM 时按 ANSI 解码，中文会乱码；每次改完 .ps1 重跑一次）
 
 .github/workflows/
-└── ci.yml                              后端测试 + 前端类型检查与构建
+└── ci.yml                              后端测试 + 前端测试、类型检查与构建
 ```
 
 ---
@@ -284,7 +301,7 @@ _tools/
 | 路径 | 类型 | 删除理由 |
 |---|---|---|
 | `assets/` | 空目录 | 骨架遗留，从未使用 |
-| `infra/` | 空目录 | 原计划放 Docker Compose，当前未使用 |
+| `infra/` | 空目录 | 原计划放 Docker Compose；实际方案改为**仓库根下的 `docker-compose.yml`**（因为构建上下文必须是仓库根，见 §2） |
 | `ml/data/processed/` | 空目录 | 训练脚本不使用该路径 |
 | `frontend/src/hooks/` | 空目录 | 未产出自定义 hook |
 | `frontend/src/locales/` | 空目录 | 未做国际化 |

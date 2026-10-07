@@ -23,11 +23,40 @@
 | 检索方式 | **混合检索**：稠密向量 + BM25 关键词，RRF 融合（默认开）；CrossEncoder 重排已接好、默认关 |
 | 外部大模型 | **8 家服务商可选**（DeepSeek / OpenAI / 通义 / Moonshot / 智谱 / Ollama / 演示 / 自定义），默认关闭 |
 | 外部 API 费用 | **0**（问答走本地检索；想对比大模型可用**离线演示通道**，仍为 0） |
-| 自动化测试 | **427 个用例**，约 60–90 秒 |
+| 自动化测试 | **427 个后端用例**（约 60–90 秒）+ **39 个前端用例**（约 5 秒） |
 
 ---
 
 ## 二、怎么启动
+
+### 方式 0：Docker 一键启动（不想装 Python / Node 就用这个）
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+打开 **http://localhost:8080**（注意不是 5173 —— 容器里前端由 nginx 托管在 80，映射到 8080）。
+首次启动会下载约 470 MB 的句向量模型，之后由卷缓存。
+
+> ⚠️ **Windows 用户注意两件事**：① 必须在 `bcdx-platform` 这一层执行（不是它的父目录），
+> ② PowerShell 不认识 `.sh`。所以自检用：
+>
+> ```powershell
+> powershell -ExecutionPolicy Bypass -File .\scripts\verify-docker.ps1
+> ```
+
+起来之后跑一次自检（10 项检查，不花钱）：
+
+```bash
+./scripts/verify-docker.sh      # Linux / macOS / Git Bash
+```
+
+Docker Desktop 怎么装、以及三个和 Docker 本身无关的坑（目录层级、`.sh`、PowerShell 传 JSON），
+见 [`DEPLOYMENT.md`](DEPLOYMENT.md) 第五节；每个容器配置的来由与排障表见同文档第二、三节。
+
+> ⚠️ 这套配置**没有实机构建过**（写它的机器上没装 Docker）。第一次跑请留意输出，
+> 有问题优先对照 `DEPLOYMENT.md` 第三节的排障表。
 
 ### 方式 A：一键启动（推荐）
 

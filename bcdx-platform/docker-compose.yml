@@ -1,0 +1,73 @@
+# --------------------------------------------------------------------------- #
+# BC-Dx Platform — one-command local deployment
+#
+#   cp .env.example .env      # first time only
+#   docker compose up --build
+#
+# then open http://localhost:8080
+#
+# Both images build from the repository root, because the backend resolves its
+# knowledge base and model registry relative to REPO_ROOT, not to `backend/`.
+# --------------------------------------------------------------------------- #
+
+name: bcdx
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: bcdx-backend:latest
+    container_name: bcdx-backend
+    restart: unless-stopped
+
+    # Secrets stay out of the image: env_file injects them at run time, and
+    # `.dockerignore` keeps .env out of the build context entirely.
+    env_file:
+      - .env
+
+    environment:
+      # These two are properties of *this deployment*, not of the app, so they
+      # deliberately override whatever the mounted .env says.
+      #
+      # Absolute path: the app's default is a relative `./bcdx.db`, which would
+      # land inside the image layer and be lost on every recreate.
+      DATABASE_URL: sqlite+pysqlite:////data/bcdx.db
+      # Whatever port you publish the frontend on has to be listed here, or the
+      # browser's requests are rejected before they ever reach the app.
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+
+    volumes:
+      # Registered accounts and prediction history survive a recreate.
+      - bcdx-data:/data
+      # The embedding model is ~470 MB. Caching it means the first start
+      # downloads once and every later start is immediate; baking it into the
+      # image instead would make the image huge and impossible to push.
+      - hf-cache:/root/.cache/huggingface
+
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: bcdx-frontend:latest
+    container_name: bcdx-frontend
+    restart: unless-stopped
+
+    ports:
+      # 8080 rather than 80: port 80 is usually taken on a dev machine.
+      - "8080:80"
+
+    depends_on:
+      backend:
+        # `service_healthy`, not `service_started`: the backend spends ~30s
+        # loading the embedding model and building the index, during which it
+        # accepts connections but has no RAG. Starting the UI early would show
+        # a broken knowledge base for half a minute.
+        condition: service_healthy
+
+volumes:
+  bcdx-data:
+  hf-cache:

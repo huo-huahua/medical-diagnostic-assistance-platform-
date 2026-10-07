@@ -27,7 +27,8 @@
 | **docs/KNOWLEDGE_BASE.md** | `docs/` | 想了解**知识库与检索**：内容清单、切块策略（含那个 98% 静默截断 bug）、拒答闸门、怎么加内容 |
 | **docs/QA_COMPARISON.md** | `docs/` | 想了解**三路径问答对比**：本地 RAG / 外部直答 / 外部 + RAG 的设计、度量口径、成本模型 |
 | **docs/LLM_INTEGRATION.md** | `docs/` | 想**接上真实大模型**：8 家服务商怎么选、环境变量优先级（含那个 401 陷阱）、探活与 16 类错误、多模型对比、密钥怎么管 |
-| **docs/TESTING.md** | `docs/` | 想**跑测试或看 CI**：427 个用例的分布，以及**每个测试在防哪个真实踩过的 bug** |
+| **docs/TESTING.md** | `docs/` | 想**跑测试或看 CI**：427 个后端用例 + 39 个前端用例的分布，以及**每个测试在防哪个真实踩过的 bug** |
+| **docs/DEPLOYMENT.md** | `docs/` | 想**一键部署**：`docker compose up --build` 的用法，以及**每个容器配置在防什么**（路径、CPU torch、卷、CORS、nginx `/health`、SSE） |
 | **ARCHITECTURE.md** | 仓库根目录 | 想**改代码**：逐文件职责、分层规则、"想改某处该看哪个文件"速查表 |
 | **docs/OPTIMIZATION_BACKLOG.md** | `docs/` | 想知道**还能优化哪些地方**：30 条优化项（现状证据 + 方案 + 成本 + 推荐组合），可按编号勾选 |
 | **docs/PROJECT_MAP.md** | `docs/` | **就是本文档**：全局总览与使用索引 |
@@ -47,7 +48,12 @@
 | `.env` / `.env.example` | 环境变量。`.example` 是可提交的模板，`.env` 是你的实际配置（**不要提交**） |
 | `scripts/dev.bat` | **Windows 一键启动**：探测 Python → 按需训练 → 开两个窗口起前后端 |
 | `scripts/dev.sh` | macOS / Linux 版启动脚本（会等后端就绪再起前端） |
-| `.github/workflows/ci.yml` | CI 流水线：后端测试 + 前端类型检查与构建 |
+| `.github/workflows/ci.yml` | CI 流水线：后端测试 + **前端测试** + 前端类型检查与构建 |
+| `docker-compose.yml` | **一键部署**：`cp .env.example .env && docker compose up --build` → <http://localhost:8080>。含数据卷（账号与历史不丢）、HF 模型缓存卷、以及 `service_healthy` 依赖（后端要花约 30 秒加载嵌入模型） |
+| `.dockerignore` | 关键一行是 **`.env`**——`env_file` 在运行时注入配置，`.env` 根本不需要进构建上下文；一旦进了，任何 `COPY` 都会把密钥写进镜像层 |
+| `backend/Dockerfile` | 后端镜像。构建上下文是**仓库根**（应用按 `REPO_ROOT` 解析知识库与模型注册表，不是按 `backend/`）。**先装 CPU 版 torch** 再装 `requirements.txt`，否则默认 wheel 带 CUDA 会让镜像大好几 GB；模型产物在构建时从已提交 CSV 训练出来 |
+| `frontend/Dockerfile` | 前端镜像：node 构建 → nginx 静态服务两阶段 |
+| `frontend/nginx.conf` | 生产路由。**vite 的 `/api`、`/health` 代理只在 `npm run dev` 生效**，生产必须靠 nginx 反代；`proxy_buffering off` 是给 SSE 流式问答的，否则"流式"会在最后一次性到达 |
 | `_tools/shoot-new-pages.cjs` | 开发工具：用 Puppeteer 驱动真实浏览器登录并截图（生成 `docs/screenshots/09`–`16`，桌面 1680×1050）。**不属于运行时**，仅在需要更新截图时手动运行 |
 | `_tools/shoot-responsive.cjs` | 开发工具：拍 `17`（平板 820 px，图标窄栏 + 页头病种切换器）与 `18`（手机 390 px）；**会断言页头存在 `[aria-pressed]` 切换器**，布局坏了会直接报错而不是产出一张看着正常的图 |
 | `_tools/smoke_all_endpoints.py` | 开发工具：**对后端打 35 条真实请求**，逐个覆盖所有已文档化的端点（公开路由 / 鉴权 / 预测 / RAG 问答 / 记录 / 大模型 / SSE），逐行打印 `OK/FAIL 标签 状态码 耗时`，非预期结果会以退出码 1 结束。用它回答"改完之后原有功能还好不好使"这类问题——**pytest 用的是 `TestClient`，它走的是真 socket**，能顺带暴露序列化、代理、SSE 之类只在真链路上出现的问题 |
@@ -83,6 +89,7 @@
 | `app/core/deps.py` | 依赖注入：当前用户、数据库会话、限流 |
 | `app/schemas/__init__.py` | 全部请求/响应契约（Pydantic v2） |
 | `tests/` | **427 个 pytest 用例**（10 个文件），覆盖切块、检索与混合排序、网关、服务商接入、预测、对比、认证、应用层 |
+| `frontend/src/**/*.test.ts(x)` | **39 个 Vitest 用例**（3 个文件），覆盖响应信封与错误文案、SSE 流式解析、格式化口径、错误边界恢复 |
 | `tests/conftest.py` | 测试基建：环境变量前置、会话级 fixture、一次性数据库、**每测试一个全新网关** |
 | `pytest.ini` | pytest 配置与标记（`slow` / `integration`） |
 | `requirements.txt` | 后端依赖清单（运行所需） |
@@ -182,7 +189,8 @@
 | 手动启动 | 终端 1：`cd backend && python -m uvicorn app.main:app --reload --port 8000`<br>终端 2：`cd frontend && npm run dev` |
 | 看后端接口文档 | http://127.0.0.1:8000/docs |
 | 检查后端是否健康 | http://127.0.0.1:8000/health（含切块统计 `rag_chunking`） |
-| **跑自动化测试** | `cd backend && set PYTHONPATH=. && pytest`（427 个用例，约 60–90 秒，不产生 API 费用） |
+| **跑后端测试** | `cd backend && set PYTHONPATH=. && pytest`（427 个用例，约 60–90 秒，不产生 API 费用） |
+| **跑前端测试** | `cd frontend && npm run test`（39 个用例，约 5 秒，jsdom，不发真实请求） |
 | **看每个测试在防哪个 bug** | 打开 [`TESTING.md`](TESTING.md) 第三节的回归清单 |
 | **看问答路径对比** | 侧栏「问答对比」→ 输入问题 → 三列并排；原理见 [`QA_COMPARISON.md`](QA_COMPARISON.md) |
 | **接入真实大模型** | 在 `.env` 里设 `LLM_ENABLED=true` + `LLM_PROVIDER` + `LLM_API_KEY` → 重启后端 → 页面顶部「外部模型连接」点「测试连接」自检；全流程见 [`LLM_INTEGRATION.md`](LLM_INTEGRATION.md) |
@@ -217,6 +225,7 @@
 |---|---|
 | 后端代码 | 31 个 Python 文件 |
 | 后端测试 | 10 个文件 · **427 个用例** |
+| 前端测试 | 3 个文件 · **39 个用例** |
 | 前端代码 | 21 个 TS/TSX 文件 · 约 8600 行 |
 | 训练脚本 | 1 个 · 550 行 |
 | 前端页面 | 9 个（登录 + 8 个业务页） |
@@ -287,7 +296,7 @@
 
 | 编号 | 事项 | 结果 |
 |---|---|---|
-| **#1** | 自动化测试与工程化 | **427 个 pytest 用例** + GitHub Actions CI（后端测试 / 前端类型检查与构建）。详情见 [`TESTING.md`](TESTING.md) |
+| **#1** | 自动化测试与工程化 | **427 个后端用例 + 39 个前端用例** + GitHub Actions CI（后端测试 / 前端测试、类型检查与构建）。详情见 [`TESTING.md`](TESTING.md) |
 | **#8** | 修掉默认密钥 | `.env.example` 换成明显占位符；**开发环境告警、生产环境拒绝启动**；有测试真的去读模板文件守着 |
 | **#13** | 扩充知识库 | 从 20 KB / 33 片段 → **49 KB / 84 小节 / 190 片段**；新增乳腺影像、心脏检查、**模型素养**三个专题。详情见 [`KNOWLEDGE_BASE.md`](KNOWLEDGE_BASE.md) |
 | **#14** | 改进切块策略 | 改为 **token 感知切块**，修掉"98% 片段超窗被静默截断"的 bug；`oversize` 现在是 0，且有测试与 CI 双重守着 |
